@@ -28,6 +28,10 @@ export default {
 			zIndex: {
 				navBarToggle: 91,
 				navBar: 90
+			},
+			boxShadow: {
+				colored: '0px 7px 16px rgba(127,91,220,0.002)',
+				coloredHover: '0px 16px 25px rgba(127,91,220,0.3)'
 			}
 		}
 	},
