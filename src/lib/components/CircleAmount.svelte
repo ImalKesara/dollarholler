@@ -1,6 +1,9 @@
 <script lang="ts">
-	export let label: string;
-	export let amount: string;
+	type Label = string;
+	type Amount = string;
+
+	export let label: Label;
+	export let amount: Amount;
 </script>
 
 <div class="flex center float-right gap-x-4 bg-circle bg-no-repeat min-h-[6rem] min-w-[16rem]">

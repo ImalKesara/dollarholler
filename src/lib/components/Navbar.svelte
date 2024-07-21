@@ -3,7 +3,8 @@
 	import Close from './Icon/Close.svelte';
 	import Hamburger from './Icon/Hamburger.svelte';
 
-	let isNavshowing: boolean = false;
+	type NavShowing = Boolean;
+	let isNavshowing: NavShowing = false;
 
 	function toggleNavbar() {
 		isNavshowing = !isNavshowing;

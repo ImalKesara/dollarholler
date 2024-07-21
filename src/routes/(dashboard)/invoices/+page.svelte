@@ -1,6 +1,6 @@
 <script lang="ts">
-	import View from './../../../lib/components/Icon/View.svelte';
-	import Tags from './../../../lib/components/Tags.svelte';
+	import View from '$lib/components/Icon/View.svelte';
+	import Tags from '$lib/components/Tags.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Threedot from '$lib/components/Icon/Threedot.svelte';
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
