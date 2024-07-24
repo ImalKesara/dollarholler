@@ -1,9 +1,14 @@
 <script lang="ts">
-	import View from '$lib/components/Icon/View.svelte';
-	import Tags from '$lib/components/Tags.svelte';
+	import { invoices, loadInvoice } from '$lib/stores/invoiceStore';
+	import { onMount } from 'svelte';
 	import Search from '$lib/components/Search.svelte';
-	import Threedot from '$lib/components/Icon/Threedot.svelte';
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
+	import InvoiceRow from './InvoiceRow.svelte';
+
+	onMount(() => {
+		loadInvoice();
+		console.log($invoices); //$ mean you import data from store
+	});
 </script>
 
 <svelte:head>
@@ -18,7 +23,7 @@
 	<!-- new invoice button -->
 	<div>
 		<button
-			class=" whitespace-nowrap rounded-lg bg-lavenderIndigo px-10 py-3 font-sansSerif text-xl font-black text-white shadow-colored hover:shadow-coloredHover transition-shadow duration-300"
+			class="whitespace-nowrap rounded-lg bg-lavenderIndigo px-10 py-3 font-sansSerif text-xl font-black text-white shadow-colored hover:shadow-coloredHover transition-shadow duration-300"
 			>+ Invoice</button
 		>
 	</div>
@@ -39,24 +44,13 @@
 	</div>
 
 	<!-- invoice -->
-	<div class="invoice-table items-center bg-white shadow-tableShaodw rounded-lg py-6">
-		<div><Tags label="sent" /></div>
-		<div class=" text-lg">8/1/2022</div>
-		<div class=" text-lg">12345</div>
-		<div class=" text-xl font-bold">Compressed fm</div>
-		<div class=" text-lg font-bold font-mono">$500.00</div>
-		<div class=" text-lg text-pastelPurple center">
-			<a href="#" class="text-pastelPurple hover:text-daisyBush"><View /></a>
-		</div>
-		<div class=" text-lg center">
-			<button class="text-pastelPurple hover:text-daisyBush"><Threedot /></button>
-		</div>
-	</div>
+
+	{#each $invoices as invoice}
+		<InvoiceRow {invoice} />
+	{/each}
 </div>
 
-<div>
-	<CircleAmount label="Total" amount="$1,500.00" />
-</div>
+<CircleAmount label="Total" amount={12} />
 
 <style lang="postcss">
 	.table-header h3 {

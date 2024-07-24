@@ -1,5 +1,7 @@
+// import type { invoiceStatus } from './enums';
+
 interface Invoice {
-	invoiceStatus: string;
+	invoiceStatus: invoiceStatus;
 	issueDate: string;
 	invoiceNumber: number;
 	id: string;
@@ -13,6 +15,7 @@ interface Invoice {
 }
 
 interface Client {
+	clientStatus: ClientStatus;
 	id: string;
 	name: string;
 	email: string;

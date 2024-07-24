@@ -1,7 +1,5 @@
 {
-	"cSpell.words": [
-		"ahaywood",
-		"jamesqquick",
-		"supabase"
-	]
+	"cSpell.words": ["ahaywood", "jamesqquick", "supabase"],
+	"editor.fontFamily": "Fira Code",
+	"editor.fontLigatures": true
 }
