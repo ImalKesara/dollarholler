@@ -4,7 +4,7 @@
 	import Tags from '$lib/components/Tags.svelte';
 	import { convertDate, islate } from '$lib/utils/dateHelpers';
 	import { centsToDollers, sumLineItems } from '$lib/utils/moneyHelpers';
-	export let invoice: Invoice;
+	export let invoice: Invoice; //+page check each block :)
 
 	const getInvoiceLabel = () => {
 		if (invoice.invoiceStatus === 'draft') {

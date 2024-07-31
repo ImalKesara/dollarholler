@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { centsToDollers } from '$lib/utils/moneyHelpers';
 	import { invoices, loadInvoice } from '$lib/stores/invoiceStore';
 	import { onMount } from 'svelte';
 	import Search from '$lib/components/Search.svelte';
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
 	import InvoiceRow from './InvoiceRow.svelte';
+	import {sumInvoices} from '../../../lib/utils/moneyHelpers';
 
 	onMount(() => {
 		loadInvoice();
@@ -45,12 +47,12 @@
 
 	<!-- invoice -->
 
-	{#each $invoices as invoice}
+	{#each $invoices as invoice} 
 		<InvoiceRow {invoice} />
 	{/each}
 </div>
 
-<CircleAmount label="Total" amount={12} />
+<CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />
 
 <style lang="postcss">
 	.table-header h3 {
