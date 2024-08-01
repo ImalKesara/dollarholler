@@ -5,7 +5,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
 	import InvoiceRow from './InvoiceRow.svelte';
-	import {sumInvoices} from '../../../lib/utils/moneyHelpers';
+	import { sumInvoices } from '../../../lib/utils/moneyHelpers';
 
 	onMount(() => {
 		loadInvoice();
@@ -46,10 +46,11 @@
 	</div>
 
 	<!-- invoice -->
-
-	{#each $invoices as invoice} 
-		<InvoiceRow {invoice} />
-	{/each}
+	<div class="flex flex-col-reverse">
+		{#each $invoices as invoice}
+			<InvoiceRow {invoice} />
+		{/each}
+	</div>
 </div>
 
 <CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />

@@ -1,10 +1,12 @@
 <script lang="ts">
+	import AddtionalOption from '$lib/components/AddtionalOption.svelte';
 	import Threedot from '$lib/components/Icon/Threedot.svelte';
 	import View from '$lib/components/Icon/View.svelte';
 	import Tags from '$lib/components/Tags.svelte';
 	import { convertDate, islate } from '$lib/utils/dateHelpers';
 	import { centsToDollers, sumLineItems } from '$lib/utils/moneyHelpers';
 	export let invoice: Invoice; //+page check each block :)
+	let addtionalMenuShowing: boolean = false;
 
 	const getInvoiceLabel = () => {
 		if (invoice.invoiceStatus === 'draft') {
@@ -30,7 +32,15 @@
 	<div class=" text-lg text-pastelPurple center">
 		<a href="#" class="text-pastelPurple hover:text-daisyBush"><View /></a>
 	</div>
-	<div class=" text-lg center">
-		<button class="text-pastelPurple hover:text-daisyBush"><Threedot /></button>
+	<div class="text-lg center relative">
+		<button
+			class="text-pastelPurple hover:text-daisyBush"
+			on:click={() => {
+				addtionalMenuShowing = !addtionalMenuShowing;
+			}}><Threedot /></button
+		>
+		{#if addtionalMenuShowing}
+			<AddtionalOption />
+		{/if}
 	</div>
 </div>
