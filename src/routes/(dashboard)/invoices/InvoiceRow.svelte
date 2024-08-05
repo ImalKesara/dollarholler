@@ -1,19 +1,36 @@
 <script lang="ts">
 	import AddtionalOption from '$lib/components/AddtionalOption.svelte';
+	import Edit from '$lib/components/Icon/Edit.svelte';
+	import Send from '$lib/components/Icon/Send.svelte';
 	import Threedot from '$lib/components/Icon/Threedot.svelte';
+	import Trash from '$lib/components/Icon/Trash.svelte';
 	import View from '$lib/components/Icon/View.svelte';
 	import Tags from '$lib/components/Tags.svelte';
 	import { convertDate, islate } from '$lib/utils/dateHelpers';
 	import { centsToDollers, sumLineItems } from '$lib/utils/moneyHelpers';
+
 	export let invoice: Invoice; //+page check each block :)
 	let addtionalMenuShowing: boolean = false;
+	let isOptionDisabled: boolean = false;
+
+	const handleEdit = () => {
+		console.log('Edit');
+	};
+	const handleDelete = () => {
+		console.log('Delete');
+	};
+	const handleSendInvoice = () => {
+		console.log('Send Invoice');
+	};
 
 	const getInvoiceLabel = () => {
 		if (invoice.invoiceStatus === 'draft') {
 			return 'draft';
 		} else if (invoice.invoiceStatus === 'sent' && !islate(invoice.dueDate)) {
+			isOptionDisabled = true;
 			return 'sent';
 		} else if (invoice.invoiceStatus === 'late' && islate(invoice.dueDate)) {
+			isOptionDisabled = true;
 			return 'late';
 		} else if (invoice.invoiceStatus === 'paid') {
 			return 'paid';
@@ -40,7 +57,13 @@
 			}}><Threedot /></button
 		>
 		{#if addtionalMenuShowing}
-			<AddtionalOption />
+			<AddtionalOption
+				options={[
+					{ label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isOptionDisabled },
+					{ label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
+					{ label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isOptionDisabled }
+				]}
+			/>
 		{/if}
 	</div>
 </div>
