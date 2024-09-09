@@ -6,6 +6,7 @@
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
 	import InvoiceRow from './InvoiceRow.svelte';
 	import { sumInvoices } from '../../../lib/utils/moneyHelpers';
+	import BlankState from './BlankState.svelte';
 
 	onMount(() => {
 		loadInvoice();
@@ -47,13 +48,19 @@
 
 	<!-- invoice -->
 	<div class="flex flex-col-reverse">
-		{#each $invoices as invoice}
-			<InvoiceRow {invoice} />
-		{/each}
+		{#if $invoices === null}
+			<!-- <BlankState /> -->
+			Loading...
+		{:else if $invoices.length <= 0}
+			<BlankState />
+		{:else}
+			{#each $invoices as invoice}
+				<InvoiceRow {invoice} />
+			{/each}
+			<CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />
+		{/if}
 	</div>
 </div>
-
-<CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />
 
 <style lang="postcss">
 	.table-header h3 {
