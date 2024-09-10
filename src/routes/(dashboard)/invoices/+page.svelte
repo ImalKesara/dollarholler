@@ -2,11 +2,13 @@
 	import { centsToDollers } from '$lib/utils/moneyHelpers';
 	import { invoices, loadInvoice } from '$lib/stores/invoiceStore';
 	import { onMount } from 'svelte';
-	import Search from '$lib/components/Search.svelte';
+	import Search from '$lib/components/SearchBar.svelte';
 	import CircleAmount from '$lib/components/CircleAmount.svelte';
 	import InvoiceRow from './InvoiceRow.svelte';
 	import { sumInvoices } from '../../../lib/utils/moneyHelpers';
 	import BlankState from './BlankState.svelte';
+	import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+	import SearchBar from '$lib/components/SearchBar.svelte';
 
 	onMount(() => {
 		loadInvoice();
@@ -19,14 +21,20 @@
 </svelte:head>
 
 <!-- top bar -->
-<div class="flex justify-between items-center mb-16">
+<div
+	class="md:gap-7-4 mb-7 flex flex-col-reverse items-start justify-between gap-y-6 md:flex-row md:items-center lg:mb-16 m-5"
+>
 	<!-- search field -->
-	<Search />
+	{#if $invoices.length > 0}
+		<SearchBar />
+	{:else}
+		<div />
+	{/if}
 	<!-- not icon folder search component-->
 	<!-- new invoice button -->
 	<div>
 		<button
-			class="whitespace-nowrap rounded-lg bg-lavenderIndigo px-10 py-3 font-sansSerif text-xl font-black text-white shadow-colored hover:shadow-coloredHover transition-shadow duration-300"
+			class="relative translate-y-0 whitespace-nowrap rounded-lg bg-lavenderIndigo px-5 py-2 font-sansSerif text-base font-black text-white shadow-colored transition-all hover:-translate-y-2 hover:shadow-coloredHover lg:px-10 lg:py-3 lg:text-xl"
 			>+ Invoice</button
 		>
 	</div>
@@ -35,35 +43,20 @@
 <!-- list of invoices -->
 
 <div>
-	<!-- header -->
-	<div class="table-header invoice-table text-daisyBush w-full">
-		<h3>Status</h3>
-		<h3>Due Date</h3>
-		<h3>ID</h3>
-		<h3>Client</h3>
-		<h3>Amount</h3>
-		<div />
-		<div />
-	</div>
-
 	<!-- invoice -->
-	<div class="flex flex-col-reverse">
-		{#if $invoices === null}
-			<!-- <BlankState /> -->
-			Loading...
-		{:else if $invoices.length <= 0}
-			<BlankState />
-		{:else}
+	{#if $invoices === null}
+		<!-- <BlankState /> -->
+		Loading...
+	{:else if $invoices.length <= 0}
+		<BlankState />
+	{:else}
+		<!-- header -->
+		<InvoiceRowHeader className="text-daisyBush" />
+		<div class="flex flex-col-reverse">
 			{#each $invoices as invoice}
 				<InvoiceRow {invoice} />
 			{/each}
-			<CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />
-		{/if}
-	</div>
+		</div>
+		<CircleAmount label="Total" amount={`$${centsToDollers(sumInvoices($invoices))}`} />
+	{/if}
 </div>
-
-<style lang="postcss">
-	.table-header h3 {
-		@apply text-xl font-black leading-loose;
-	}
-</style>

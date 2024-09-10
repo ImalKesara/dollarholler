@@ -22,7 +22,7 @@
 </svelte:head>
 
 <button
-	class=" fixed right-6 top-6 z-navBarToggle md:hidden"
+	class="fixed right-6 top-6 z-navBarToggle md:hidden "
 	on:click={toggleNavbar}
 	class:text-goldenFizz={isNavshowing}
 	class:text-daisyBush={!isNavshowing}

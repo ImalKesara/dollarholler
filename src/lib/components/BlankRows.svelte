@@ -1,0 +1,1 @@
+<div class="bg-prim mb-5 block h-[5rem] w-full rounded-lg" />
